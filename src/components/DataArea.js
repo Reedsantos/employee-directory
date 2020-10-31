@@ -26,5 +26,35 @@ export default class DataArea extends Component {
                 order: "descend"
             })
         }
+
+        const compareFunction = (a, b) => {
+            if (this.state.order === "ascend") {
+                if (a[heading] === undefined) {
+                    return 1;
+                } else if (b[heading] === undefined) {
+                    return -1;
+                }
+                else if (heading === "name") {
+                    return a[heading].first.localeCompare(b[heading].first);
+                } else {
+                    return a[heading] - b[heading];
+                }
+            } else {
+                if (a[heading] === undefined) {
+                    return 1;
+                } else if (b[heading] === undefined) {
+                    return -1;
+                }
+                else if (heading === "name") {
+                    return b[heading].first.localeCompare(a[heading].first);
+                } else {
+                    return b[heading] - a[heading];
+                }
+            }
+
+        }
+
+        const sortedUsers = this.state.filteredUsers.sort(compareFunction);
+        this.setState({ filteredUsers: sortedUsers });
     }
-}
+};
