@@ -1,5 +1,6 @@
 import React from "react";
 
+// searchBox.js is within nav.js
 function SearchBox({ handleSearchChange }) {
   return (
     <div className="searchBox">

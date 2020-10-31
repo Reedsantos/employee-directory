@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "../styles/Header.css";
 
+// header is a standalone component
 export default class Header extends Component {
     render() {
         return (

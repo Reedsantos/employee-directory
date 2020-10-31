@@ -1,5 +1,7 @@
+// dataBody.js is within dataTable.js
 import React from "react";
 
+// ensures date of birth is ordered MM-DD-YYY
 function DataBody({ users }) {
   function formatDate(date) {
     const dateArray = date.split("-");
@@ -11,6 +13,7 @@ function DataBody({ users }) {
     return formattedDate;
   }
 
+  // this function formats employee objects
   return (
     <tbody>
       {users[0] !== undefined && users[0].name !== undefined ? (

@@ -1,9 +1,11 @@
+// dataArea.js is within main.js
 import React, { Component } from 'react'
 import DataTable from "./DataTable";
 import Nav from "./Nav";
 import API from "../utils/API";
 import "../styles/DataArea.css";
 
+// empty array
 export default class DataArea extends Component {
     state = {
         users: [{}],
@@ -19,6 +21,7 @@ export default class DataArea extends Component {
         { name: "D.O.B.", width: "10%" }
     ]
 
+    // function to sort by first name
     handleSort = heading => {
         if (this.state.order === "descend") {
             this.setState({
@@ -30,24 +33,29 @@ export default class DataArea extends Component {
             })
         }
         
+        // this function sorts array and displays new results
         const compareFunction = (a, b) => {
             if (this.state.order === "ascend") {
+                // Account for missing values
                 if (a[heading] === undefined) {
                     return 1;
                 } else if (b[heading] === undefined) {
                     return -1;
                 }
+                // Numerically
                 else if (heading === "name") {
                     return a[heading].first.localeCompare(b[heading].first);
                 } else {
                     return a[heading] - b[heading];
                 }
             } else {
+                // Account for missing values
                 if (a[heading] === undefined) {
                     return 1;
                 } else if (b[heading] === undefined) {
                     return -1;
                 }
+                // Numerically
                 else if (heading === "name") {
                     return b[heading].first.localeCompare(a[heading].first);
                 } else {
@@ -66,6 +74,7 @@ export default class DataArea extends Component {
         console.log(event.target.value);
         const filter = event.target.value;
         const filteredList = this.state.users.filter(item => {
+            // Merge data together, then see if user input is anywhere inside
             let values = Object.values(item)
                 .join("")
                 .toLowerCase();
@@ -82,6 +91,7 @@ export default class DataArea extends Component {
         });
     }
 
+    // nav.js and dataTable.js are both within dataArea.js
     render() {
         return (
             <>
@@ -96,4 +106,4 @@ export default class DataArea extends Component {
             </>
         );
     }
-};
+}

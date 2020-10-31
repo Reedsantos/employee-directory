@@ -1,7 +1,9 @@
+// dataTable.js is within dataArea.js
 import React from "react";
 import DataBody from "./DataBody";
 import "../styles/DataTable.css";
 
+// dataBody.js is within dataTable.js
 function DataTable({ headings, users, handleSort }) {
   return (
     <div className="datatable mt-5">
