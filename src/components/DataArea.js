@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import DataTable from "./DataTable";
+import Nav from "./Nav";
+import API from "../utils/API";
 import "../styles/DataArea.css";
 
 export default class DataArea extends Component {
@@ -26,7 +29,7 @@ export default class DataArea extends Component {
                 order: "descend"
             })
         }
-
+        
         const compareFunction = (a, b) => {
             if (this.state.order === "ascend") {
                 if (a[heading] === undefined) {
@@ -56,5 +59,41 @@ export default class DataArea extends Component {
 
         const sortedUsers = this.state.filteredUsers.sort(compareFunction);
         this.setState({ filteredUsers: sortedUsers });
+    }
+
+    
+    handleSearchChange = event => {
+        console.log(event.target.value);
+        const filter = event.target.value;
+        const filteredList = this.state.users.filter(item => {
+            let values = Object.values(item)
+                .join("")
+                .toLowerCase();
+            return values.indexOf(filter.toLowerCase()) !== -1;
+        });
+        this.setState({ filteredUsers: filteredList });
+    }
+    componentDidMount() {
+        API.getUsers().then(results => {
+            this.setState({
+                users: results.data.results,
+                filteredUsers: results.data.results
+            });
+        });
+    }
+
+    render() {
+        return (
+            <>
+                <Nav handleSearchChange={this.handleSearchChange} />
+                <div className="data-area">
+                    <DataTable
+                        headings={this.headings}
+                        users={this.state.filteredUsers}
+                        handleSort={this.handleSort}
+                    />
+                </div>
+            </>
+        );
     }
 };
